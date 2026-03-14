@@ -3,448 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خطة هندسة المعلوماتية — جامعة الرشيد</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<title>عمران العمر | مهندس أمن سيبراني</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0a0c16; --surface:#111422; --card:#181d30; --card2:#1e2438;
-  --border:#252d47; --accent:#6c63ff; --accent2:#00d4aa; --accent3:#ff6b6b;
-  --text:#e8eaf6; --muted:#7b82a8;
-  --done:#00d4aa; --inprogress:#f5a623;
-  --y1:#ef5350; --y2:#ffa726; --y3:#66bb6a; --y4:#42a5f5; --y5:#ab47bc;
-  --frc:#ffd54f; --urc:#80cbc4; --itc:#ce93d8; --elec:#90caf9;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  :root {
+    --bg: #050a0e;
+    --bg2: #080f14;
+    --panel: #0a1520;
+    --green: #00ff88;
+    --cyan: #00e5ff;
+    --red: #ff3366;
+    --text: #c8dce8;
+    --muted: #4a6a7a;
+    --border: #0d2030;
+    --glow: 0 0 20px rgba(0,255,136,0.3);
+  }
 
-header{background:linear-gradient(135deg,#151a2e,#0a0c16);border-bottom:1px solid var(--border);padding:18px 24px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
-.hinner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.htitle{font-size:1.35rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hsub{font-size:.75rem;color:var(--muted);margin-top:2px;}
-.hbtn-row{display:flex;gap:8px;flex-wrap:wrap;}
-.btn{padding:7px 14px;border-radius:100px;font-family:'Tajawal',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s;border:1px solid;}
-.btn-red{background:transparent;border-color:var(--accent3);color:var(--accent3);}
-.btn-red:hover{background:var(--accent3);color:#fff;}
-.btn-dim{background:transparent;border-color:var(--border);color:var(--muted);}
-.btn-dim:hover{border-color:var(--accent);color:var(--accent);}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.legbar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 24px;}
-.leginner{max-width:1300px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:.72rem;color:var(--muted);}
-.ldot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
-.litem{display:flex;align-items:center;gap:5px;}
+  html { scroll-behavior: smooth; }
 
-.statsbar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;}
-.sinner{max-width:1300px;margin:0 auto;}
-.srow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;}
-.sbox{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:9px 16px;text-align:center;min-width:100px;}
-.snum{font-size:1.5rem;font-weight:800;line-height:1;}
-.slbl{font-size:.68rem;color:var(--muted);margin-top:2px;}
-.pwrap{background:var(--card);border-radius:100px;height:7px;overflow:hidden;}
-.pfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width .5s ease;}
-.plbls{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:5px;}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    overflow-x: hidden;
+    /* تم إصلاح المؤشر: سيعمل المؤشر المخصص الآن بفضل سكريبت JS */
+    cursor: none; 
+  }
 
-main{max-width:1300px;margin:0 auto;padding:22px 24px;}
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--green);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    box-shadow: 0 0 10px var(--green), 0 0 20px var(--green);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,255,136,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
 
-.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px;}
-.filter-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:100px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.8rem;transition:all .2s;}
-.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.cpanel{background:linear-gradient(135deg,rgba(245,166,35,.07),rgba(245,166,35,.02));border:1px solid rgba(245,166,35,.3);border-radius:14px;margin-bottom:26px;overflow:hidden;}
-.chead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(245,166,35,.2);}
-.ctitle{font-size:.9rem;font-weight:700;color:var(--inprogress);}
-.csub{font-size:.7rem;color:var(--muted);margin-top:2px;}
-.cbadge{background:rgba(245,166,35,.15);color:var(--inprogress);font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:100px;border:1px solid rgba(245,166,35,.3);}
-.cchips{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px;min-height:48px;}
-.cempty{color:var(--muted);font-size:.8rem;width:100%;text-align:center;padding:6px 0;}
-.chip{display:flex;align-items:center;gap:5px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-radius:100px;padding:4px 11px;font-size:.8rem;color:var(--inprogress);font-weight:500;}
-.chipx{cursor:pointer;color:rgba(245,166,35,.5);transition:color .15s;}
-.chipx:hover{color:var(--accent3);}
+  /* Scanline effect */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.05) 2px,
+      rgba(0,0,0,0.05) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
 
-.ysec{margin-bottom:32px;}
-.yhead{display:flex;align-items:center;gap:9px;margin-bottom:12px;}
-.ydot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.ytitle{font-size:.95rem;font-weight:700;}
-.ymeta{font-size:.72rem;color:var(--muted);margin-right:auto;}
-.yhrs{font-size:.72rem;color:var(--accent2);background:rgba(0,212,170,.1);padding:2px 9px;border-radius:100px;}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(5,10,14,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
 
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:720px){.sgrid{grid-template-columns:1fr}main{padding:14px}header{padding:12px}}
+  .nav-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--green);
+    letter-spacing: 2px;
+  }
+  .nav-logo span { color: var(--cyan); }
 
-.scard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;}
-.stitle{padding:9px 13px;font-size:.75rem;font-weight:700;color:var(--muted);background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
-.scred{color:var(--accent2);font-size:.7rem;}
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
 
-.ci{display:flex;align-items:center;gap:9px;padding:9px 13px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;position:relative;}
-.ci:last-child{border-bottom:none;}
-.ci:hover{background:rgba(108,99,255,.06);}
-.chk{width:17px;height:17px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:10px;font-weight:bold;color:#fff;}
-.ci.done .chk{background:var(--done);border-color:var(--done);}
-.ci.done .chk::after{content:'✓';}
-.ci.inprogress .chk{background:var(--inprogress);border-color:var(--inprogress);}
-.ci.inprogress .chk::after{content:'⟳';font-size:12px;}
-.cinf{flex:1;min-width:0;}
-.cn{font-size:.83rem;font-weight:500;transition:color .2s;}
-.ci.done .cn{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--done);}
-.ci.inprogress .cn{color:var(--inprogress);}
-.cmeta{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px;}
-.tag{font-size:.65rem;padding:1px 6px;border-radius:100px;border:1px solid var(--border);}
-.tfrc{background:rgba(255,213,79,.07);color:var(--frc);border-color:rgba(255,213,79,.2);}
-.turc{background:rgba(128,203,196,.07);color:var(--urc);border-color:rgba(128,203,196,.2);}
-.titc{background:rgba(206,147,216,.07);color:var(--itc);border-color:rgba(206,147,216,.2);}
-.telec{background:rgba(144,202,249,.07);color:var(--elec);border-color:rgba(144,202,249,.2);}
-.tpre{background:rgba(255,255,255,.04);color:var(--muted);}
-.cred{font-size:.72rem;font-weight:700;color:var(--accent2);background:rgba(0,212,170,.1);padding:2px 7px;border-radius:100px;flex-shrink:0;white-space:nowrap;}
-.ccode{font-size:.62rem;color:var(--muted);opacity:.5;position:absolute;left:13px;bottom:3px;}
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+    position: relative;
+  }
 
-.esec{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;}
-.ehead{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.etitle{font-size:.9rem;font-weight:700;}
-.esub{font-size:.72rem;color:var(--muted);margin-top:2px;}
-.echosen{font-size:.76rem;color:var(--elec);background:rgba(144,202,249,.1);padding:3px 11px;border-radius:100px;}
-.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
 
-/* MODAL */
-.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
-.mbox{background:var(--card2);border:1px solid var(--border);border-radius:18px;max-width:500px;width:100%;padding:24px;max-height:85vh;overflow-y:auto;}
-.mbox h2{font-size:1rem;font-weight:800;margin-bottom:14px;color:var(--accent2);}
-.ms{margin-bottom:12px;}
-.ms h3{font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:5px;}
-.ms p{font-size:.78rem;color:var(--muted);line-height:1.75;}
-.gtbl{width:100%;border-collapse:collapse;font-size:.74rem;margin-top:5px;}
-.gtbl th,.gtbl td{padding:4px 9px;text-align:center;border:1px solid var(--border);}
-.gtbl th{background:rgba(108,99,255,.1);color:var(--accent);}
-.mclose{display:block;margin-top:18px;background:var(--accent);border:none;color:#fff;padding:9px 20px;border-radius:100px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.82rem;width:100%;}
+  .nav-links a:hover { color: var(--green); }
+  .nav-links a:hover::after { transform: scaleX(1); }
 
-.hidden{display:none!important;}
+  .nav-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0,255,136,0); }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content { max-width: 700px; }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--green);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '//';
+    color: var(--muted);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    color: #e8f4f8;
+  }
+
+  .hero h1 .highlight {
+    color: var(--green);
+    text-shadow: 0 0 40px rgba(0,255,136,0.4);
+  }
+
+  .hero-role {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--cyan);
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+    min-height: 1.2em;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--cyan);
+    margin-right: 4px;
+    vertical-align: middle;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--green);
+    color: #050a0e;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary:hover {
+    background: #00cc6a;
+    box-shadow: 0 0 30px rgba(0,255,136,0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 1px solid var(--cyan);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0,229,255,0.1);
+    box-shadow: 0 0 20px rgba(0,229,255,0.3);
+  }
+
+  /* Terminal widget */
+  .hero-terminal {
+    position: absolute;
+    left: 60px;
+    bottom: 80px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .hero-terminal .t-green { color: var(--green); }
+  .hero-terminal .t-cyan { color: var(--cyan); }
+
+  /* Decorative Shield */
+  .hero-deco {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shield-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: rotateRing linear infinite;
+  }
+
+  .shield-ring:nth-child(1) { width: 380px; height: 380px; border-color: rgba(0,255,136,0.1); animation-duration: 30s; }
+  .shield-ring:nth-child(2) { width: 300px; height: 300px; border-color: rgba(0,229,255,0.15); animation-duration: 20s; animation-direction: reverse; }
+  .shield-ring:nth-child(3) { width: 220px; height: 220px; border-color: rgba(0,255,136,0.2); animation-duration: 15s; }
+
+  @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .shield-center {
+    font-size: 5rem;
+    z-index: 1;
+    filter: drop-shadow(0 0 30px rgba(0,255,136,0.5));
+    animation: floatIcon 4s ease-in-out infinite;
+  }
+
+  @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  /* STATS BAR */
+  .stats-bar {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .stat-item {
+    padding: 32px 40px;
+    border-left: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--green);
+    text-shadow: var(--glow);
+    display: block;
+  }
+
+  .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; display: block; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 2; padding: 100px 60px; }
+  .section-header { margin-bottom: 60px; }
+  .section-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--green); letter-spacing: 4px; display: block; }
+  .section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: #e8f4f8; }
+  .section-title span { color: var(--green); }
+  .section-line { width: 60px; height: 2px; background: linear-gradient(90deg, var(--green), transparent); margin-top: 20px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .about-text p { font-size: 1.05rem; line-height: 1.9; color: var(--muted); margin-bottom: 20px; }
+  .about-specs { display: flex; flex-direction: column; gap: 16px; }
+  .spec-row { display: grid; grid-template-columns: 160px 1fr; padding: 16px 20px; background: var(--panel); border: 1px solid var(--border); border-right: 3px solid var(--green); font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+  .spec-key { color: var(--muted); }
+  .spec-val { color: var(--cyan); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .skill-card { background: var(--panel); border: 1px solid var(--border); padding: 32px; transition: all 0.4s; }
+  .skill-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .skill-name { font-size: 1.1rem; font-weight: 700; color: #e8f4f8; margin-top: 15px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px; }
+  .skill-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; padding: 3px 10px; background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); color: var(--green); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .project-card { background: var(--panel); border: 1px solid var(--border); transition: all 0.4s; }
+  .project-header { padding: 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .project-body { padding: 24px 28px; }
+  .project-title { font-size: 1.15rem; font-weight: 700; color: #e8f4f8; }
+  .project-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; line-height: 1.7;}
+  .stack-item { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; padding: 3px 8px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); margin-left: 5px; }
+
+  /* CONTACT FORM */
+  .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .form-label { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+  .form-input, .form-textarea { background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 14px; width: 100%; outline: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--green); }
+
+  /* FOOTER */
+  footer { padding: 40px 60px; border-top: 1px solid var(--border); background: var(--bg2); display: flex; justify-content: space-between; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .about-grid, .skills-grid, .projects-grid, .contact-wrapper { grid-template-columns: 1fr; }
+    nav { padding: 20px 30px; }
+    section { padding: 80px 30px; }
+    .hero-deco { display: none; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="hinner">
-    <div>
-      <div class="htitle">📚 خطة هندسة المعلوماتية</div>
-      <div class="hsub">جامعة الرشيد الدولية — 170 ساعة معتمدة — 5 سنوات</div>
-    </div>
-    <div class="hbtn-row">
-      <button class="btn btn-dim" onclick="document.getElementById('modal').classList.remove('hidden')">📋 نظام الدراسة</button>
-      <button class="btn btn-red" onclick="resetAll()">↺ إعادة تعيين</button>
-    </div>
-  </div>
-</header>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<div class="legbar">
-  <div class="leginner">
-    <span style="font-weight:700">نوع المادة:</span>
-    <div class="litem"><div class="ldot" style="background:var(--frc)"></div>متطلبات الكلية FRC</div>
-    <div class="litem"><div class="ldot" style="background:var(--urc)"></div>متطلبات الجامعة URC</div>
-    <div class="litem"><div class="ldot" style="background:var(--itc)"></div>متطلبات التخصص ITC</div>
-    <div class="litem"><div class="ldot" style="background:var(--elec)"></div>اختياري ITE</div>
-    <span style="margin-right:auto"></span>
-    <span>🖱️ نقرة = أنجزت &nbsp;|&nbsp; نقرتان = قيد الدراسة</span>
+<nav>
+  <div class="nav-logo">[<span>OA</span>_SEC]</div>
+  <ul class="nav-links">
+    <li><a href="#about">عني</a></li>
+    <li><a href="#skills">المهارات</a></li>
+    <li><a href="#projects">المشاريع</a></li>
+    <li><a href="#contact">تواصل</a></li>
+  </ul>
+  <div class="nav-status"><div class="status-dot"></div> AVAILABLE_FOR_WORK</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">مهندس أمن سيبراني</div>
+    <h1>
+      <span class="glitch" data-text="مرحباً، أنا">مرحباً، أنا</span><br>
+      <span class="highlight glitch" data-text="عمران العمر">عمران العمر</span>
+    </h1>
+    <p class="hero-role">
+      <span id="typedText"></span><span class="typing-cursor"></span>
+    </p>
+    <p class="hero-desc">مهندس معلوماتية شغوف بعالم الأمن السيبراني. أركّز على تطوير مهاراتي في اختبار الاختراق وأمن الشبكات لبناء دفاعات أقوى.</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn-primary">استعرض أعمالي</a>
+      <a href="#contact" class="btn-secondary">تواصل معي</a>
+    </div>
   </div>
+
+  <div class="hero-deco">
+    <div class="shield-ring"></div>
+    <div class="shield-ring"></div>
+    <div class="shield-ring"></div>
+    <div class="shield-center">🛡️</div>
+  </div>
+
+  <div class="hero-terminal">
+    <div><span class="t-green">$</span> whoami</div>
+    <div><span class="t-cyan">omran_alomar@kali</span></div>
+    <div style="margin-top:8px"><span class="t-green">$</span> status --check</div>
+    <div><span class="t-green">✓</span> actively_learning</div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num" data-target="3">0</span><span class="stat-label">مجالات تخصص</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="2">0</span><span class="stat-label">نظام تشغيل</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="10">0</span><span class="stat-label">أداة أمنية</span></div>
+  <div class="stat-item"><span class="stat-num" data-target="100">0</span><span class="stat-label">% شغف</span></div>
 </div>
 
-<div class="statsbar">
-  <div class="sinner">
-    <div class="srow">
-      <div class="sbox"><div class="snum" id="s1" style="color:var(--done)">0</div><div class="slbl">مادة أنجزت</div></div>
-      <div class="sbox"><div class="snum" id="s2" style="color:var(--inprogress)">0</div><div class="slbl">قيد الدراسة</div></div>
-      <div class="sbox"><div class="snum" id="s3" style="color:var(--accent)">0</div><div class="slbl">متبقية</div></div>
-      <div class="sbox"><div class="snum" id="s4" style="color:var(--accent2)">0</div><div class="slbl">ساعة أنجزت</div></div>
-      <div class="sbox"><div class="snum" style="color:var(--muted)">170</div><div class="slbl">مجموع الساعات</div></div>
-      <div class="sbox"><div class="snum" id="s5" style="color:var(--y3);font-size:1rem">—</div><div class="slbl">مستواك</div></div>
+<section id="about">
+  <div class="section-header">
+    <span class="section-tag">01 // ABOUT_ME</span>
+    <h2 class="section-title">من <span>أنا؟</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>أنا <strong>عمران العمر</strong>، مهندس معلوماتية شغفي الحقيقي هو <strong>الأمن السيبراني</strong>. أعمل حالياً على تطوير مهاراتي في <strong>أمن الشبكات</strong> واستخدام <strong>Kali Linux</strong> لتطبيق ما أتعلمه عملياً.</p>
     </div>
-    <div class="pwrap"><div class="pfill" id="pfill" style="width:0%"></div></div>
-    <div class="plbls"><span>التقدم نحو التخرج</span><span id="ppct">0%</span></div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="moverlay hidden" id="modal" onclick="if(event.target===this)this.classList.add('hidden')">
-  <div class="mbox">
-    <h2>📋 نظام الدراسة — جامعة الرشيد</h2>
-    <div class="ms"><h3>الخطة الدراسية (170 ساعة)</h3>
-    <p>متطلبات الجامعة: 16 ساعة (9.4%) | متطلبات الكلية: 36 ساعة (21.2%) | متطلبات التخصص: 118 ساعة (69.4%)</p></div>
-    <div class="ms"><h3>حدود التسجيل في الفصل</h3>
-    <p>الخريفي/الربيعي: أدنى 12 — أعلى 18 ساعة (25 إذا GPA ≥ 3.0). الصيفي: 2–9 ساعات. فصل التخرج: حتى 21 ساعة.</p></div>
-    <div class="ms"><h3>الغياب</h3>
-    <p>الحد الأعلى للغياب: <strong>15%</strong> من ساعات المقرر. تجاوزه = تقدير Z (محروم) يُحسب صفراً في المعدل.</p></div>
-    <div class="ms"><h3>الإنذار الأكاديمي</h3>
-    <p>إذا انخفض المعدل التراكمي عن <strong>2.0</strong> يصدر إنذار — مهلة فصلين لرفعه وإلا يُفصل من التخصص.</p></div>
-    <div class="ms"><h3>جدول التقديرات</h3>
-    <table class="gtbl">
-      <tr><th>الدرجة %</th><th>الرمز</th><th>النقاط</th><th>الدرجة %</th><th>الرمز</th><th>النقاط</th></tr>
-      <tr><td>98–100</td><td>A+</td><td>4.00</td><td>70–75</td><td>C+</td><td>2.50</td></tr>
-      <tr><td>95–98</td><td>A</td><td>3.75</td><td>65–70</td><td>C</td><td>2.25</td></tr>
-      <tr><td>90–95</td><td>A-</td><td>3.50</td><td>60–65</td><td>C-</td><td>2.00</td></tr>
-      <tr><td>85–90</td><td>B+</td><td>3.25</td><td>55–60</td><td>D+</td><td>1.75</td></tr>
-      <tr><td>80–85</td><td>B</td><td>3.00</td><td>50–55</td><td>D</td><td>1.50</td></tr>
-      <tr><td>75–80</td><td>B-</td><td>2.75</td><td>&lt; 50</td><td>F</td><td>0</td></tr>
-    </table></div>
-    <div class="ms"><h3>تقدير التخرج</h3>
-    <p>المعدل المئوي = (GPA × 20) + 20<br>شرف: 3.57–4.0 | امتياز: 3.25–3.74 | جيد جداً: 2.75–3.24 | جيد: 2.25–2.74 | مقبول: 2.0–2.24</p></div>
-    <button class="mclose" onclick="document.getElementById('modal').classList.add('hidden')">إغلاق</button>
-  </div>
-</div>
-
-<main>
-  <div class="filters">
-    <button class="filter-btn active" onclick="filt('all',this)">الكل</button>
-    <button class="filter-btn" onclick="filt('1',this)">السنة الأولى</button>
-    <button class="filter-btn" onclick="filt('2',this)">السنة الثانية</button>
-    <button class="filter-btn" onclick="filt('3',this)">السنة الثالثة</button>
-    <button class="filter-btn" onclick="filt('4',this)">السنة الرابعة</button>
-    <button class="filter-btn" onclick="filt('5',this)">السنة الخامسة</button>
-    <button class="filter-btn" onclick="filt('elective',this)">الاختياريات</button>
-    <button class="filter-btn" style="border-color:rgba(245,166,35,.4);color:var(--inprogress)" onclick="filt('current',this)">📖 قيد الدراسة</button>
-  </div>
-
-  <div class="cpanel" id="cpanel">
-    <div class="chead">
-      <div><div class="ctitle">📖 قيد الدراسة — الفصل الحالي</div><div class="csub">نقرتان على أي مادة لتضيفها هنا</div></div>
-      <div id="ipbadge" class="cbadge">0 ساعة</div>
+    <div class="about-specs">
+      <div class="spec-row"><span class="spec-key">الاسم:</span><span class="spec-val">عمران العمر</span></div>
+      <div class="spec-row"><span class="spec-key">المجال:</span><span class="spec-val">اختبار الاختراق</span></div>
+      <div class="spec-row"><span class="spec-key">الحالة:</span><span class="spec-val" style="color:var(--green)">طالب — في طور التعلم ✓</span></div>
     </div>
-    <div class="cchips" id="ipchips"><div class="cempty">لا توجد مواد مسجّلة بعد</div></div>
   </div>
+</section>
 
-  <div id="ycont"></div>
-
-  <div class="esec" data-year="elective">
-    <div class="ehead">
-      <div><div class="etitle">⭐ الاختياريات (ITE) — اختر 18 ساعة</div><div class="esub">متطلبات تخصص هندسة المعلوماتية الاختيارية</div></div>
-      <div id="echosen" class="echosen">0 / 18 ساعة</div>
+<section id="skills" style="background:var(--bg2);">
+  <div class="section-header">
+    <span class="section-tag">02 // SKILLS</span>
+    <h2 class="section-title">مجالات <span>التخصص</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">🌐</span>
+      <div class="skill-name">أمن الشبكات</div>
+      <div class="skill-tags">
+        <span class="skill-tag">TCP/IP</span><span class="skill-tag">Wireshark</span><span class="skill-tag">Firewall</span>
+      </div>
     </div>
-    <div id="egrid"></div>
+    <div class="skill-card">
+      <span class="skill-icon">⚔️</span>
+      <div class="skill-name">اختبار الاختراق</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Nmap</span><span class="skill-tag">Metasploit</span><span class="skill-tag">Burp Suite</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">💻</span>
+      <div class="skill-name">أنظمة التشغيل</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Kali Linux</span><span class="skill-tag">Bash</span><span class="skill-tag">PowerShell</span>
+      </div>
+    </div>
   </div>
-</main>
+</section>
+
+<section id="projects">
+    <div class="section-header">
+        <span class="section-tag">03 // LEARNING_PATH</span>
+        <h2 class="section-title">رحلة <span>التعلم</span></h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+        <div class="project-card">
+            <div class="project-header">
+                <div class="project-title">Penetration Testing</div>
+                <span class="stack-item">Active</span>
+            </div>
+            <div class="project-body">
+                <p class="project-desc">دراسة أساليب الاستطلاع واستغلال الثغرات.</p>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-header">
+                <div class="project-title">GitHub Portfolio</div>
+                <a href="https://github.com/OmranAlomar" target="_blank" style="color:var(--green); text-decoration:none;">Visit →</a>
+            </div>
+            <div class="project-body">
+                <p class="project-desc">مستودع لمشاريع البرمجة وأدوات الأمن.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" style="background:var(--bg2);">
+  <div class="section-header">
+    <span class="section-tag">04 // CONTACT</span>
+    <h2 class="section-title">تواصل <span>معي</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <p>يسعدني التواصل معك والإجابة على استفساراتك التقنية أو طلبات المشاريع.</p>
+      <a href="https://github.com/OmranAlomar" target="_blank" style="color:var(--text); text-decoration:none;">GitHub: OmranAlomar</a>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">FULL_NAME</label>
+        <input type="text" class="form-input" id="wa-name" placeholder="اسمك الكامل">
+      </div>
+      <div class="form-group">
+        <label class="form-label">MESSAGE</label>
+        <textarea class="form-textarea" id="wa-message" placeholder="اكتب رسالتك هنا..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="sendWhatsApp()" style="width:100%;">إرسال عبر واتساب</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2026 <span>OMRAN_ALOMAR</span>. All Rights Reserved.</div>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Security Terms</a>
+  </div>
+</footer>
 
 <script>
-const SK='rshd_cs3_done', IPK='rshd_cs3_ip';
+  // 1. تحريك المؤشر المخصص
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
 
-const years=[
-  {id:1,title:'السنة الأولى',color:'#ef5350',totalHrs:32,semesters:[
-    {name:'الفصل الأول',credits:17,courses:[
-      {id:'y1s1_1',code:'URC001',name:'اللغة الإنكليزية 1',credits:3,pre:'—',cat:'urc'},
-      {id:'y1s1_2',code:'FRC101',name:'رياضيات 1',credits:3,pre:'—',cat:'frc'},
-      {id:'y1s1_3',code:'FRC110',name:'فيزياء 1',credits:4,pre:'—',cat:'frc'},
-      {id:'y1s1_4',code:'URC003',name:'مهارات الحاسوب',credits:3,pre:'—',cat:'urc'},
-      {id:'y1s1_5',code:'FRC108',name:'رسم هندسي',credits:1,pre:'—',cat:'frc'},
-      {id:'y1s1_6',code:'FRC103',name:'الاحتمالات والإحصاء',credits:3,pre:'—',cat:'frc'},
-    ]},
-    {name:'الفصل الثاني',credits:15,courses:[
-      {id:'y1s2_1',code:'URC002',name:'اللغة الإنكليزية 2',credits:3,pre:'URC001',cat:'urc'},
-      {id:'y1s2_2',code:'FRC102',name:'رياضيات 2',credits:3,pre:'FRC101',cat:'frc'},
-      {id:'y1s2_3',code:'FRC111',name:'فيزياء 2',credits:4,pre:'FRC110',cat:'frc'},
-      {id:'y1s2_4',code:'FRC201',name:'مهارات حاسوب متقدمة',credits:3,pre:'URC003',cat:'frc'},
-      {id:'y1s2_5',code:'ITC101',name:'برمجة 1',credits:3,pre:'—',cat:'itc'},
-    ]},
-  ]},
-  {id:2,title:'السنة الثانية',color:'#ffa726',totalHrs:34,semesters:[
-    {name:'الفصل الأول',credits:17,courses:[
-      {id:'y2s1_1',code:'FRC104',name:'رياضيات هندسية 1',credits:3,pre:'FRC102',cat:'frc'},
-      {id:'y2s1_2',code:'ITC201',name:'دارات كهربائية 1',credits:4,pre:'FRC111',cat:'itc'},
-      {id:'y2s1_3',code:'FRC106',name:'الطرق العددية الهندسية',credits:3,pre:'FRC102',cat:'frc'},
-      {id:'y2s1_4',code:'ITC301',name:'الإشارات والأنظمة',credits:3,pre:'FRC102',cat:'itc'},
-      {id:'y2s1_5',code:'ITC202',name:'تصميم المنطق الرقمي',credits:4,pre:'FRC201',cat:'itc'},
-    ]},
-    {name:'الفصل الثاني',credits:17,courses:[
-      {id:'y2s2_1',code:'FRC105',name:'رياضيات هندسية 2',credits:3,pre:'FRC104',cat:'frc'},
-      {id:'y2s2_2',code:'ITC302',name:'دارات كهربائية 2',credits:4,pre:'ITC201',cat:'itc'},
-      {id:'y2s2_3',code:'ITC303',name:'الاتصالات التماثلية',credits:3,pre:'ITC301',cat:'itc'},
-      {id:'y2s2_4',code:'ITC402',name:'برمجة 2',credits:3,pre:'ITC101',cat:'itc'},
-      {id:'y2s2_5',code:'ITC403',name:'خوارزميات 1',credits:2,pre:'ITC101',cat:'itc'},
-      {id:'y2s2_6',code:'URC004',name:'اللغة العربية 1',credits:3,pre:'—',cat:'urc'},
-    ]},
-  ]},
-  {id:3,title:'السنة الثالثة',color:'#66bb6a',totalHrs:34,semesters:[
-    {name:'الفصل الأول',credits:17,courses:[
-      {id:'y3s1_1',code:'ITC404',name:'برمجة غرضية التوجه',credits:3,pre:'ITC402',cat:'itc'},
-      {id:'y3s1_2',code:'ITC501',name:'لغات صورية',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y3s1_3',code:'ITC401',name:'مبادئ بنيان الحاسوب',credits:3,pre:'ITC202',cat:'itc'},
-      {id:'y3s1_4',code:'ITC405',name:'خوارزميات 2',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y3s1_5',code:'ITC502',name:'الرؤيا الحاسوبية',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y3s1_6',code:'ITC503',name:'الرسم بمعونة الحاسوب',credits:2,pre:'FRC201',cat:'itc'},
-    ]},
-    {name:'الفصل الثاني',credits:17,courses:[
-      {id:'y3s2_1',code:'ITC600',name:'لغات البرمجة',credits:4,pre:'ITC402',cat:'itc'},
-      {id:'y3s2_2',code:'ITC601',name:'هندسة البرمجيات 1',credits:3,pre:'ITC402',cat:'itc'},
-      {id:'y3s2_3',code:'ITC602',name:'المترجمات',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y3s2_4',code:'ITC603',name:'نظم التشغيل',credits:3,pre:'ITC401',cat:'itc'},
-      {id:'y3s2_5',code:'ITC604',name:'معالجات صغرية',credits:4,pre:'ITC401',cat:'itc'},
-    ]},
-  ]},
-  {id:4,title:'السنة الرابعة',color:'#42a5f5',totalHrs:34,semesters:[
-    {name:'الفصل الأول',credits:17,courses:[
-      {id:'y4s1_1',code:'ITC700',name:'نظم البحث عن معلومات',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y4s1_2',code:'ITC701',name:'ذكاء صنعي',credits:3,pre:'ITC403',cat:'itc'},
-      {id:'y4s1_3',code:'ITC702',name:'هندسة نظم المعلومات',credits:4,pre:'ITC405',cat:'itc'},
-      {id:'y4s1_4',code:'ITC703',name:'هندسة البرمجيات 2',credits:4,pre:'ITC601',cat:'itc'},
-      {id:'y4s1_5',code:'ITE-A',name:'اختياري تخصص (أ)',credits:3,pre:'—',cat:'elec'},
-    ]},
-    {name:'الفصل الثاني',credits:17,courses:[
-      {id:'y4s2_1',code:'ITC800',name:'نظم التشغيل الموزعة',credits:3,pre:'ITC603',cat:'itc'},
-      {id:'y4s2_2',code:'ITC801',name:'بنيان الحاسوب المتقدم',credits:3,pre:'ITC401',cat:'itc'},
-      {id:'y4s2_3',code:'ITC605',name:'شبكات الحاسوب',credits:3,pre:'ITC303',cat:'itc'},
-      {id:'y4s2_4',code:'ITE-B',name:'اختياري تخصص (ب)',credits:3,pre:'—',cat:'elec'},
-      {id:'y4s2_5',code:'URE1',name:'اختياري جامعة',credits:2,pre:'—',cat:'urc'},
-      {id:'y4s2_6',code:'ITE-C',name:'اختياري تخصص (ج)',credits:3,pre:'—',cat:'elec'},
-    ]},
-  ]},
-  {id:5,title:'السنة الخامسة',color:'#ab47bc',totalHrs:36,semesters:[
-    {name:'الفصل الأول',credits:18,courses:[
-      {id:'y5s1_1',code:'FRC120',name:'الإدارة الهندسية',credits:3,pre:'FRC106',cat:'frc'},
-      {id:'y5s1_2',code:'ITC901',name:'الاتصالات الرقمية',credits:3,pre:'ITC303',cat:'itc'},
-      {id:'y5s1_3',code:'ITC000',name:'مشروع تخرج 1',credits:2,pre:'130 ساعة',cat:'itc'},
-      {id:'y5s1_4',code:'FRC010',name:'أخلاقيات الهندسة',credits:3,pre:'—',cat:'frc'},
-      {id:'y5s1_5',code:'ITE-D',name:'اختياري تخصص (د)',credits:3,pre:'—',cat:'elec'},
-      {id:'y5s1_6',code:'ITE-E',name:'اختياري تخصص (هـ)',credits:3,pre:'—',cat:'elec'},
-    ]},
-    {name:'الفصل الثاني',credits:18,courses:[
-      {id:'y5s2_1',code:'ITC902',name:'أنظمة التحكم',credits:4,pre:'ITC302',cat:'itc'},
-      {id:'y5s2_2',code:'ITC903',name:'الإنترنت والويب',credits:3,pre:'ITC605',cat:'itc'},
-      {id:'y5s2_3',code:'ITC904',name:'أمن شبكات الحاسوب',credits:3,pre:'ITC605',cat:'itc'},
-      {id:'y5s2_4',code:'ITC001',name:'مشروع تخرج 2',credits:4,pre:'مشروع تخرج 1',cat:'itc'},
-      {id:'y5s2_5',code:'ITE-F',name:'اختياري تخصص (و)',credits:3,pre:'—',cat:'elec'},
-      {id:'y5s2_6',code:'URE2',name:'اختياري جامعة 2',credits:2,pre:'—',cat:'urc'},
-    ]},
-  ]},
-];
-
-const electives=[
-  {id:'ITE201',code:'ITE201',name:'تصميم الأنظمة الرقمية',credits:3,pre:'ITC202',cat:'elec'},
-  {id:'ITE402',code:'ITE402',name:'قواعد بيانات متقدمة',credits:3,pre:'ITC202',cat:'elec'},
-  {id:'ITE403',code:'ITE403',name:'البيانات الحاسوبية',credits:3,pre:'ITC405',cat:'elec'},
-  {id:'ITE304',code:'ITE304',name:'حقول كهرطيسية',credits:3,pre:'FRC111',cat:'elec'},
-  {id:'ITE305',code:'ITE305',name:'وسائط نقل الإشارة',credits:3,pre:'ITC301',cat:'elec'},
-  {id:'ITE306',code:'ITE306',name:'تحويل طاقة',credits:3,pre:'ITC302',cat:'elec'},
-  {id:'ITE407',code:'ITE407',name:'ذكاء صنعي متقدم',credits:3,pre:'ITC701',cat:'elec'},
-  {id:'ITE308',code:'ITE308',name:'إدارة الشبكات الحاسوبية',credits:3,pre:'ITC605',cat:'elec'},
-  {id:'ITE409',code:'ITE409',name:'استرجاع المعلومات',credits:3,pre:'ITC301',cat:'elec'},
-  {id:'ITE410',code:'ITE410',name:'قواعد المعطيات',credits:3,pre:'ITC403',cat:'elec'},
-  {id:'ITE411',code:'ITE411',name:'برمجة متقدمة',credits:3,pre:'ITC402',cat:'elec'},
-];
-
-let done=new Set(JSON.parse(localStorage.getItem(SK)||'[]'));
-let ip=new Set(JSON.parse(localStorage.getItem(IPK)||'[]'));
-function save(){localStorage.setItem(SK,JSON.stringify([...done]));localStorage.setItem(IPK,JSON.stringify([...ip]));}
-
-function getAll(){let a=[];years.forEach(y=>y.semesters.forEach(s=>s.courses.forEach(c=>a.push(c))));electives.forEach(c=>a.push(c));return a;}
-function toggle(id){if(ip.has(id))return;done.has(id)?done.delete(id):done.add(id);save();render();}
-function toggleIP(id,e){e.preventDefault();if(done.has(id))return;ip.has(id)?ip.delete(id):ip.add(id);save();render();}
-function removeIP(id){ip.delete(id);save();render();}
-function resetAll(){if(confirm('إعادة تعيين كل المواد؟')){done.clear();ip.clear();save();render();}}
-
-function level(h){
-  if(h<24)return'السنة الأولى';
-  if(h<56)return'السنة الثانية';
-  if(h<88)return'السنة الثالثة';
-  if(h<120)return'السنة الرابعة';
-  return'السنة الخامسة';
-}
-
-function tag(cat,code){
-  const m={frc:['tfrc','FRC'],urc:['turc','URC'],itc:['titc','ITC'],elec:['telec','ITE']};
-  const[cls,lbl]=m[cat]||['tpre',cat];
-  return`<span class="tag ${cls}">${lbl}</span>`;
-}
-
-function render(){
-  const all=getAll();
-  const dh=all.filter(c=>done.has(c.id)).reduce((s,c)=>s+c.credits,0);
-  const ih=all.filter(c=>ip.has(c.id)).reduce((s,c)=>s+c.credits,0);
-  const pct=Math.round(dh/170*100);
-  document.getElementById('s1').textContent=done.size;
-  document.getElementById('s2').textContent=ip.size;
-  document.getElementById('s3').textContent=all.length-done.size-ip.size;
-  document.getElementById('s4').textContent=dh;
-  document.getElementById('s5').textContent=level(dh);
-  document.getElementById('pfill').style.width=pct+'%';
-  document.getElementById('ppct').textContent=pct+'%';
-
-  // IP panel
-  const ipc=all.filter(c=>ip.has(c.id));
-  document.getElementById('ipbadge').textContent=ih+' ساعة';
-  document.getElementById('ipchips').innerHTML=ipc.length===0
-    ?'<div class="cempty">لا توجد مواد مسجّلة بعد — نقرتان على أي مادة</div>'
-    :ipc.map(c=>`<div class="chip">⟳ ${c.name} <span class="chipx" onclick="removeIP('${c.id}')">✕</span></div>`).join('');
-
-  // Electives counter
-  const ed=electives.filter(c=>done.has(c.id)).reduce((s,c)=>s+c.credits,0);
-  document.getElementById('echosen').textContent=ed+' / 18 ساعة';
-  if(ed>=18)document.getElementById('echosen').style.color='var(--done)';
-  else document.getElementById('echosen').style.color='var(--elec)';
-
-  // Years
-  const cont=document.getElementById('ycont');
-  cont.innerHTML='';
-  years.forEach(y=>{
-    const ac=y.semesters.flatMap(s=>s.courses);
-    const dc=ac.filter(c=>done.has(c.id)).length;
-    const div=document.createElement('div');
-    div.className='ysec';div.dataset.year=y.id;
-    div.innerHTML=`
-      <div class="yhead">
-        <div class="ydot" style="background:${y.color}"></div>
-        <div class="ytitle">${y.title}</div>
-        <div class="ymeta">${dc}/${ac.length} مادة</div>
-        <div class="yhrs">${y.totalHrs} ساعة</div>
-      </div>
-      <div class="sgrid">
-        ${y.semesters.map(s=>`
-          <div class="scard">
-            <div class="stitle"><span>${s.name}</span><span class="scred">${s.credits} ساعة</span></div>
-            ${s.courses.map(c=>`
-              <div class="ci ${done.has(c.id)?'done':ip.has(c.id)?'inprogress':''}"
-                onclick="toggle('${c.id}')" ondblclick="toggleIP('${c.id}',event)"
-                title="نقرة = أنجزت | نقرتان = قيد الدراسة">
-                <div class="chk"></div>
-                <div class="cinf">
-                  <div class="cn">${c.name}</div>
-                  <div class="cmeta">${tag(c.cat)}${c.pre!=='—'?`<span class="tag tpre">📎 ${c.pre}</span>`:''}</div>
-                </div>
-                <div class="cred">${c.credits} س</div>
-                <div class="ccode">${c.code}</div>
-              </div>
-            `).join('')}
-          </div>
-        `).join('')}
-      </div>`;
-    cont.appendChild(div);
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top = e.clientY + 'px';
   });
 
-  // Electives
-  document.getElementById('egrid').innerHTML=electives.map(c=>`
-    <div class="ci ${done.has(c.id)?'done':ip.has(c.id)?'inprogress':''}"
-      onclick="toggle('${c.id}')" ondblclick="toggleIP('${c.id}',event)"
-      title="نقرة = أنجزت | نقرتان = قيد الدراسة">
-      <div class="chk"></div>
-      <div class="cinf">
-        <div class="cn">${c.name}</div>
-        <div class="cmeta"><span class="tag telec">${c.code}</span><span class="tag tpre">📎 ${c.pre}</span></div>
-      </div>
-      <div class="cred">${c.credits} س</div>
-    </div>
-  `).join('');
-}
+  // 2. وظيفة إرسال الواتساب
+  function sendWhatsApp() {
+    const name = document.getElementById('wa-name').value;
+    const message = document.getElementById('wa-message').value;
+    
+    // --- هام: استبدل الرقم أدناه برقمك الحقيقي ---
+    const myNumber = "9665XXXXXXXX"; 
 
-function filt(y,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const cp=document.getElementById('cpanel');
-  const el=document.querySelector('[data-year="elective"]');
-  if(y==='current'){
-    document.querySelectorAll('.ysec').forEach(s=>s.classList.add('hidden'));
-    el.classList.add('hidden');cp.classList.remove('hidden');return;
+    if (!name || !message) {
+      alert("الرجاء إدخال الاسم والرسالة");
+      return;
+    }
+
+    const text = `مرحباً عمران،%0Aالاسم: ${name}%0Aالرسالة: ${message}`;
+    window.open(`https://wa.me/${myNumber}?text=${text}`, '_blank');
   }
-  cp.classList.remove('hidden');
-  document.querySelectorAll('.ysec').forEach(s=>{
-    (y==='all'||s.dataset.year===y)?s.classList.remove('hidden'):s.classList.add('hidden');
-  });
-  (y==='all'||y==='elective')?el.classList.remove('hidden'):el.classList.add('hidden');
-}
 
-render();
+  // 3. تأثير الكتابة الآلية
+  const typedTextSpan = document.getElementById("typedText");
+  const words = ["Cyber Security Engineer", "Pentester", "Networking Expert"];
+  let wordIndex = 0, charIndex = 0;
+
+  function typeEffect() {
+    if (charIndex < words[wordIndex].length) {
+      typedTextSpan.textContent += words[wordIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(typeEffect, 100);
+    } else {
+      setTimeout(eraseEffect, 2000);
+    }
+  }
+
+  function eraseEffect() {
+    if (charIndex > 0) {
+      typedTextSpan.textContent = words[wordIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(eraseEffect, 50);
+    } else {
+      wordIndex = (wordIndex + 1) % words.length;
+      setTimeout(typeEffect, 500);
+    }
+  }
+
+  // 4. عداد الإحصائيات
+  const counters = document.querySelectorAll('.stat-num');
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const updateCount = () => {
+      const count = +counter.innerText;
+      if (count < target) {
+        counter.innerText = count + 1;
+        setTimeout(updateCount, 50);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
+
+  document.addEventListener("DOMContentLoaded", typeEffect);
 </script>
+
 </body>
 </html>
